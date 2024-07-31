@@ -4,7 +4,7 @@ import TaskCard from "./TaskCard";
 import TaskModal from "./TaskModal";
 
 export default function TaskBoard({ tasks }: any) {
-  const columns = ["To do", "In progress", "Under review", "Finished"];
+  const columns = ["To Do", "In Progress", "Under Review", "Done"];
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const openModal = () => setIsModalOpen(true);

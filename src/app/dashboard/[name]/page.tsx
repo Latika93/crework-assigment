@@ -7,49 +7,13 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { getSession } from "next-auth/react";
-
-
-const tasks = [
-  {
-    title: "Implement User Authentication",
-    description: "Develop and integrate user authentication using email and password.",
-    status: "To do",
-    priority: "Urgent",
-    date: "2024-08-15",
-  },
-  {
-    title: "Design Home Page UI",
-    description: "Develop and integrate user authentication using email and password.",
-    status: "In progress",
-    priority: "Medium",
-    date: "2024-08-15",
-  },
-  {
-    title: "Conduct User Feedback Survey",
-    description: "Collect and analyze user feedback to improve app features.",
-    status: "In progress",
-    priority: "Low",
-    date: "2024-08-05",
-  },
-  {
-    title: "Integrate Cloud Storage",
-    description: "Enable cloud storage for note backup and synchronization.",
-    status: "Under review",
-    priority: "Urgent",
-    date: "2024-08-20",
-  },
-  {
-    title: "Test Cross-browser Compatibility",
-    description: "Ensure the app works seamlessly across different web browsers.",
-    status: "Finished",
-    priority: "Medium",
-    date: "2024-07-30",
-  },
-];
+import Sidebar from "../components/Sidebar";
+import { CiMenuBurger } from "react-icons/ci";
 
 export default function Dashboard({ params }: any) {
 
   const [taskList, setTaskList] = useState([]);
+  const [siderbarOpen, setSiderbarOpen] = useState(true);
 
   const [session, setSession] = useState<any>(null);
 
@@ -66,30 +30,40 @@ export default function Dashboard({ params }: any) {
     }
   }
 
-  const getTaskList = async ()=>{
+  const getTaskList = async () => {
     const response = await axios.get('/api/tasks')
     const values = response.data;
     setTaskList(values.tasks)
-    console.log(values.tasks);    
+    console.log(values.tasks);
   }
 
-  useEffect(()=>{
+  const toggleSidebar = () => {
+    setSiderbarOpen(() => !siderbarOpen)
+  }
+
+  useEffect(() => {
     getTaskList()
-      console.log(taskList);
-      
-  },[])
+    console.log(taskList);
+
+  }, [])
 
   useEffect(() => {
     console.log('Updated taskList:', taskList);
   }, [taskList]);
 
-  
+  // const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openSidebar = () => setSiderbarOpen(true);
+  const closeSidebar = () => setSiderbarOpen(false);
+
 
   return (
     <div>
       <Head>
         <title>Task Management</title>
       </Head>
+      <span onClick={()=>openSidebar } ><CiMenuBurger /></span>
+      {siderbarOpen && <Sidebar isOpen={siderbarOpen} onClose={closeSidebar} />}
       <Header name={params.name} />
       {taskList && <TaskBoard tasks={taskList} />}
       <button

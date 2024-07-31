@@ -5,6 +5,8 @@ import { AiOutlineStar, AiOutlineCalendar, AiOutlineEdit } from "react-icons/ai"
 
 
 const TaskModal = ({ isOpen, onClose, statusCol }: any) => {
+    console.log("statusCol", statusCol);
+    
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [status, setStatus] = useState(statusCol || 'To Do');

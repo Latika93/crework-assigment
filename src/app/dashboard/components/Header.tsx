@@ -1,14 +1,17 @@
 "use client"
 import Image from 'next/image';
 import image from '../../assets/image.png';
+import img from '../../assets/image2.png';
+import image2 from '../../assets/image3.png';
 import { useState } from 'react';
 import TaskModal from './TaskModal';
+import { CiShare2, CiFilter,CiCalendar } from "react-icons/ci";
 
 export default function Header({ name }: any) {
     const [isModalOpen, setIsModalOpen] = useState(false)
 
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
+    const openModal = () => setIsModalOpen(true);
+    const closeModal = () => setIsModalOpen(false);
 
     return (
         <header className="p-4 bg-gray-100 shadow">
@@ -17,7 +20,7 @@ export default function Header({ name }: any) {
                 <p className="text-sm">Help & feedback ?</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl w-full px-1 my-4 ">
-                <div className="bg-white p-1 rounded-lg flex">
+                <div className="bg-white py-4 px-2 rounded-lg flex">
                     <Image
                         src={image}
                         alt="Description"
@@ -26,34 +29,36 @@ export default function Header({ name }: any) {
                         className="object-cover rounded-lg mr-4"
                     />
                     <div>
-                        <h2 className="text-xl font-bold mb-2 text-gray-600">Dome</h2>
-                        <p className="text-gray-400">else</p>
+                        <h2 className="text-lg font-bold mb-2 text-gray-600">Introducing tags</h2>
+                        <p className="text-gray-400 text-xs">Easily categorize and find your notes by adding tags. Keep your workspace clutter-free and efficient.
+
+                        </p>
                     </div>
                 </div>
-                <div className="bg-white p-1 rounded-lg flex">
+                <div className="bg-white py-4 px-2 rounded-lg flex">
                     <Image
-                        src={image}
+                        src={img}
                         alt="Description"
                         width={96}
                         height={96}
                         className="object-cover rounded-lg mr-4"
                     />
                     <div>
-                        <h2 className="text-xl font-bold mb-2 text-gray-600">Dome</h2>
-                        <p className="text-gray-400">else</p>
+                        <h2 className="text-lg font-bold mb-2 text-gray-600">Share Notes Instantly</h2>
+                        <p className="text-gray-400 text-xs">Effortlessly share your notes with others via email or link. Enhance collaboration with quick sharing options</p>
                     </div>
                 </div>
-                <div className="bg-white p-1 rounded-lg flex">
+                <div className="bg-white py-4 px-2 rounded-lg flex">
                     <Image
-                        src={image}
+                        src={image2}
                         alt="Description"
                         width={96}
                         height={96}
                         className="object-cover rounded-lg mr-4"
                     />
                     <div>
-                        <h2 className="text-xl font-bold mb-2 text-gray-600">Dome</h2>
-                        <p className="text-gray-400">else</p>
+                        <h2 className="text-lg font-bold mb-2 text-gray-600">Access Anywhere</h2>
+                        <p className="text-gray-400 text-xs">Sync your notes across all devices. Stay productive whether you are on your phone, tablet, or computer</p>
                     </div>
                 </div>
             </div>
@@ -65,20 +70,7 @@ export default function Header({ name }: any) {
                         className="px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"
                     />
                     <button className="flex items-center px-4 py-2 text-gray-600 bg-gray-100 rounded-md hover:bg-gray-200">
-                        <svg
-                            className="w-5 h-5 mr-2"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                                d="M8 7v6a4 4 0 004 4h4M16 3h5a2 2 0 012 2v5m0 10a2 2 0 01-2 2h-5m-4 0a4 4 0 01-4-4v-4m-4-4a2 2 0 012-2h5m0 0a4 4 0 004-4V3m4 0a2 2 0 00-2-2h-5m-4 0a4 4 0 01-4 4v5"
-                            ></path>
-                        </svg>
+                        <CiCalendar /><span className='mr-3'></span>
                         Calendar view
                     </button>
                     <button className="flex items-center px-4 py-2 text-gray-600 bg-gray-100 rounded-md hover:bg-gray-200">
@@ -99,37 +91,11 @@ export default function Header({ name }: any) {
                         Automation
                     </button>
                     <button className="flex items-center px-4 py-2 text-gray-600 bg-gray-100 rounded-md hover:bg-gray-200">
-                        <svg
-                            className="w-5 h-5 mr-2"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                                d="M3 6h18M9 6v12M15 6v12m-6 0h6"
-                            ></path>
-                        </svg>
+                        <CiFilter /><span className='mr-3'></span>
                         Filter
                     </button>
                     <button className="flex items-center px-4 py-2 text-gray-600 bg-gray-100 rounded-md hover:bg-gray-200">
-                        <svg
-                            className="w-5 h-5 mr-2"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                                d="M15 10l4.72-4.72a2 2 0 000-2.82l-1.18-1.18a2 2 0 00-2.82 0L10 6.82M8 12H4v-4m0 8v4h4m8-4h4v-4m0 8v4h-4"
-                            ></path>
-                        </svg>
+                        <CiShare2 /><span className='mr-3'></span>
                         Share
                     </button>
                 </div>

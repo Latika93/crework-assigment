@@ -6,70 +6,66 @@ import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { getSession } from "next-auth/react";
 import Sidebar from "../components/Sidebar";
 import { CiMenuBurger } from "react-icons/ci";
 
 export default function Dashboard({ params }: any) {
-
   const [taskList, setTaskList] = useState([]);
-  const [siderbarOpen, setSiderbarOpen] = useState(true);
-
+  const [sidebarOpen, setSidebarOpen] = useState(true);
   const [session, setSession] = useState<any>(null);
 
-  const router = useRouter()
-  const [data, setData] = useState('')
+  const router = useRouter();
+  const [data, setData] = useState('');
+
   const logout = async () => {
     try {
-      await axios.get('/api/users/logout')
-      toast.success('Logout successful')
-      router.push('/login')
+      await axios.get('/api/users/logout');
+      toast.success('Logout successful');
+      router.push('/login');
     } catch (error: any) {
       console.log(error.message);
-      toast.error(error.message)
+      toast.error(error.message);
     }
   }
 
   const getTaskList = async () => {
-    const response = await axios.get('/api/tasks')
+    const response = await axios.get('/api/tasks');
     const values = response.data;
-    setTaskList(values.tasks)
+    setTaskList(values.tasks);
     console.log(values.tasks);
   }
 
   const toggleSidebar = () => {
-    setSiderbarOpen(() => !siderbarOpen)
+    setSidebarOpen(!sidebarOpen);
   }
 
   useEffect(() => {
-    getTaskList()
+    getTaskList();
     console.log(taskList);
-
-  }, [])
+  }, []);
 
   useEffect(() => {
     console.log('Updated taskList:', taskList);
   }, [taskList]);
 
-  // const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const openSidebar = () => setSiderbarOpen(true);
-  const closeSidebar = () => setSiderbarOpen(false);
-
+  const openSidebar = () => setSidebarOpen(true);
+  const closeSidebar = () => setSidebarOpen(false);
 
   return (
-    <div>
+    <div className="flex">
       <Head>
         <title>Task Management</title>
       </Head>
-      <span onClick={()=>openSidebar } ><CiMenuBurger /></span>
-      {siderbarOpen && <Sidebar isOpen={siderbarOpen} onClose={closeSidebar} />}
-      <Header name={params.name} />
-      {taskList && <TaskBoard tasks={taskList} />}
-      <button
-        onClick={logout}
-        className="bg-blue-500 mt-4 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-      >Logout</button>
+      <div className={`${sidebarOpen ? 'block' : 'hidden'} fixed inset-y-0 left-0`}>
+        <Sidebar isOpen={sidebarOpen} onClose={closeSidebar} />
+      </div>
+      <div className={`${sidebarOpen ? 'ml-64' : 'ml-0'} flex-grow p-4 transition-all duration-300`}>
+        <span onClick={toggleSidebar} className="cursor-pointer">
+          <CiMenuBurger />
+        </span>
+        <Header name={params.name} />
+        {taskList && <TaskBoard tasks={taskList} />}
+      </div>
     </div>
   );
 }

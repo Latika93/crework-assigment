@@ -58,7 +58,7 @@ export default function LoginPage() {
             console.log(response);
 
             const userName = response.data.name; 
-            router.push(`/dashboard/${userName}`);
+            router.push(`/dashboard`);
         } catch (error: any) {
             console.log("Login failed", error.message);
             toast.error(error.message);

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import TaskUpdate from './TaskUpdate';
 import axios from "axios";
 
-export default function TaskCard({ _id, title, description, status, priority, date }: any) {
+export default function TaskCard({ _id, title, description, status, priority, date, setTaskList }: any) {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleUpdate = () => {
@@ -16,6 +16,10 @@ export default function TaskCard({ _id, title, description, status, priority, da
                 alert('Task deleted successfully');
                 // Optionally refresh the list of tasks or handle the UI update accordingly
             }
+
+            const getData = await axios.get('/api/tasks');
+            const values = getData.data;
+            setTaskList(values.tasks);
         } catch (error) {
             console.error('Error deleting task:', error);
         }
@@ -50,6 +54,7 @@ export default function TaskCard({ _id, title, description, status, priority, da
                     isOpen={isModalOpen}
                     onClose={() => setIsModalOpen(false)}
                     task={{ _id, title, description, status, priority, date }}
+                    setTaskList={setTaskList}
                 />
             )}
         </div>

@@ -59,7 +59,8 @@ export async function GET(request: NextRequest) {
             const userId = (decoded as { id: string }).id;
 
             const tasks = await Task.find({ user: userId });
-
+            
+            
             return NextResponse.json({
                 message: 'Tasks fetched successfully',
                 success: true,

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import axios from "axios";
 import { AiOutlineStar, AiOutlineCalendar, AiOutlineEdit } from "react-icons/ai";
 
-const TaskUpdate = ({ isOpen, onClose, task }: any) => {
+const TaskUpdate = ({ isOpen, onClose, task, setTaskList }: any) => {
     const [title, setTitle] = useState(task.title);
     const [description, setDescription] = useState(task.description);
     const [status, setStatus] = useState(task.status || 'To Do');
@@ -16,6 +16,10 @@ const TaskUpdate = ({ isOpen, onClose, task }: any) => {
 
         const response = await axios.put(`/api/tasks/${task._id}`, { title, description, status, priority, deadline });
         console.log("Task updated successfully", response.data);
+
+        const getData = await axios.get('/api/tasks');
+        const values = getData.data;
+        setTaskList(values.tasks);
 
         onClose();
     };
